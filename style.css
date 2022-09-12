@@ -1,0 +1,121 @@
+:root {
+    font-family: Arial, Helvetica, sans-serif;
+    --color-back1: #791818;
+    --color-back2: rgb(103, 24, 24);
+}
+
+body {
+    height: 100vh;
+    user-select: none;
+    /* overflow: hidden; */
+    background: repeating-conic-gradient(var(--color-back2) 0deg calc(360/20*1deg), var(--color-back1) calc(360/20*1deg) calc(360/20*2*1deg));
+    margin: 0;
+    padding: 0;
+}
+
+.gradient {
+    position: fixed;
+    width: 100vw;
+    height: 100vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background: radial-gradient(circle, #0000, var(--color-back1));
+}
+
+.wheel-container {
+    position: relative;
+    background-color: var(--color-back1);
+    height: 600px;
+    width: 600px;
+    border-radius: 50%;
+    box-shadow:  16px 16px 15px #691515,
+             -16px -16px 15px #891b1b;
+}
+
+.wheel-container::after {
+    content: "";
+    position: absolute;
+    width: 90%;
+    height: 90%;
+    inset: 5%;
+    border-radius: 50%;
+    box-shadow: inset 5px 5px 5px #691515,
+          inset   -5px -5px 5px #891b1b;
+}
+
+.lights {
+    box-sizing: border-box;
+    position: absolute;
+    height: 100%;
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    padding: 1%;
+}
+
+.light {
+    width: 20px;
+    height: 20px;
+    box-shadow:  5px 5px 5px #691515,
+             -5px -5px 5px #891b1b;
+    border-radius: 50%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.light-source {
+    width: 16px;
+    height: 16px;
+    background-color: rgb(129, 127, 124);
+    border-radius: 50%;
+}
+
+.on {
+    background-color: #fff;
+    box-shadow: 0 0 30px #fff,
+    0 0 40px #fff,
+    0 0 50px #fff,
+    0 0 60px #fff,
+    0 0 70px #fff,
+    0 0 80px #fff,
+    0 0 90px #fff,
+    0 0 100px #fff;
+}
+
+.wheel-section {
+    height: 88%;
+    width: 88%;
+    border-radius: 50%;
+    inset: 6%;
+    position: absolute;
+    background: conic-gradient(white calc(5*1%),#0000 0);
+    animation: rotation 10s cubic-bezier(.71,.02,.29,1.02);
+}
+
+
+.wheel-section div {
+    height: 100%;
+    transform: rotate(14deg);
+}
+
+/* @keyframes rotation {
+    0% {transform: rotate(0deg);}
+    100% {transform: rotate(1080deg);}
+} */
+
+p {
+    text-align: center;
+}
+
+.fixed-part {
+    cursor: pointer;
+    inset: 40%;
+    position: absolute;
+    width: 20%;
+    height: 20%;
+    background-color: var(--color-back2);
+    border-radius: 50%;
+}
