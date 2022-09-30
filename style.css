@@ -9,7 +9,7 @@
 body {
     height: 100vh;
     user-select: none;
-    /* overflow: hidden; */
+    overflow: hidden;
     background: repeating-conic-gradient(var(--color-back2) 0deg calc(360/var(--division)*1deg), var(--color-back1) calc(360/var(--division)*1deg) calc(360/var(--division)*2*1deg));
     margin: 0;
     padding: 0;
@@ -74,7 +74,7 @@ body {
     height: 16px;
     background-color: rgb(42, 40, 37);
     border-radius: 50%;
-    transition: 0.15s;
+    transition: 0.3s;
 }
 
 .on {
@@ -97,7 +97,7 @@ body {
     inset: 6%;
     background: repeating-conic-gradient(bisque 0deg calc(360/var(--division)*1deg), rgb(66, 130, 66) calc(360/var(--division)*1deg) calc(360/var(--division)*2*1deg));
     transform: rotate();
-    transition: transform 8s cubic-bezier(.34,.01,.29,1.1);
+    transition: transform 8s cubic-bezier(.34,.01,.29,1.03);
 }
 
 .pie {

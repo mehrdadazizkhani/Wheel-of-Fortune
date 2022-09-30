@@ -4,7 +4,7 @@ const lightContainer = document.querySelector('.light-container')
 const wheel = document.querySelector('.wheel')
 const start = document.querySelector('.fixed-part')
 const division = 16
-const fakeMove = 360 * 2
+const fakeMove = 360 * 3
 
 const prizes = [
     {prize: "0", chance: 25},
@@ -15,7 +15,7 @@ const prizes = [
     {prize: "112.5", chance: 2},
     {prize: "135", chance: 5},
     {prize: "157.5", chance: 10},
-    {prize: "180", chance: 7},
+    {prize: "180", chance: 70},
     {prize: "202.5", chance: 30},
     {prize: "225", chance: 4},
     {prize: "247.5", chance: 5},
@@ -41,6 +41,10 @@ lightGenerator()
 prizeGenerator()
 start.addEventListener("click", startHandler)
 
+function setDivision () {
+    r.style.setProperty('--division', division)
+    r.style.setProperty('--result-pin', `${360/division/2}deg`)
+}
 
 function lightGenerator () {
     for (let i = 0; i < division; i++) {
@@ -61,7 +65,7 @@ function prizeGenerator () {
     for (let i = 0; i < division; i++) {
         const pie = document.createElement('div')
         pie.className = 'pie'
-        pie.style.transform = `rotate(${(i+1)*360/division+360-360/division/2}deg)`
+        pie.style.transform = `rotate(${i*360/division+360/division/2}deg)`
         wheel.appendChild(pie)
         const prize = document.createElement('p')
         prize.innerText = `${prizes[i].prize}`
@@ -69,15 +73,6 @@ function prizeGenerator () {
         pie.appendChild(prize)
     }
 }
-
-
-function setDivision () {
-    r.style.setProperty('--division', division)
-    r.style.setProperty('--result-pin', `${360/division/2}deg`)
-}
-
-
-
 
 const switchHandler = () => {
     const light = document.querySelectorAll('.light-source')
@@ -102,4 +97,4 @@ function startHandler () {
     wheel.style.transform = `rotate(${-rotationDeg}deg)`   
 }
 
-setInterval(switchHandler, 1000)
+setInterval(switchHandler, 1500)
