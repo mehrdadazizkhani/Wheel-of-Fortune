@@ -2,7 +2,8 @@
     font-family: Arial, Helvetica, sans-serif;
     --color-back1: #791818;
     --color-back2: rgb(103, 24, 24);
-    --division: 20
+    --division: 0;
+    --result-pin: 11.25deg;
 }
 
 body {
@@ -45,11 +46,8 @@ body {
           inset   -5px -5px 5px #891b1b;
 }
 
-.light-container {
-    height: 100%;
-}
-
 .light-bulb {
+    top: 0;
     position: absolute;
     box-sizing: border-box;
     height: 100%;
@@ -74,46 +72,49 @@ body {
 .light-source {
     width: 16px;
     height: 16px;
-    background-color: rgb(129, 127, 124);
+    background-color: rgb(42, 40, 37);
     border-radius: 50%;
+    transition: 0.15s;
 }
 
 .on {
-    animation: lightSwitch 2s infinite cubic-bezier(1,0,0,1.01);
-}
-
-.off {
-    animation: lightSwitch 2s infinite cubic-bezier(1,0,0,1.01);
-    animation-delay: 1s;
-}
-
-@keyframes lightSwitch {
-    0% {    
-        background-color: #fff;
-        box-shadow: 0 0 30px #fff,
-        0 0 40px #fff,
-        0 0 50px #fff,
-        0 0 60px #fff,
-        0 0 70px #fff,
-        0 0 80px #fff,
-        0 0 90px #fff,
-        0 0 100px #fff;}
-    100% {
-    }
+    background-color: #fff;
+    box-shadow: 0 0 30px #fff,
+    0 0 40px #fff,
+    0 0 50px #fff,
+    0 0 60px #fff,
+    0 0 70px #fff,
+    0 0 80px #fff,
+    0 0 90px #fff,
+    0 0 100px #fff;
 }
 
 .wheel {
+    position: absolute;
     height: 88%;
     width: 88%;
     border-radius: 50%;
     inset: 6%;
-    position: absolute;
-    background: repeating-conic-gradient(bisque 0deg calc(360/var(--division)*1deg), tomato calc(360/var(--division)*1deg) calc(360/var(--division)*2*1deg));
-    transition: transform 2s cubic-bezier(.71,.02,.29,1.02);
+    background: repeating-conic-gradient(bisque 0deg calc(360/var(--division)*1deg), rgb(66, 130, 66) calc(360/var(--division)*1deg) calc(360/var(--division)*2*1deg));
+    transform: rotate();
+    transition: transform 8s cubic-bezier(.34,.01,.29,1.1);
 }
 
-p {
-    text-align: center;
+.pie {
+    position: absolute;
+    inset: 0;
+    height: 100%;
+    display: flex;
+    justify-content: center;
+    z-index: 50;
+}
+
+.prize {
+    text-align: end;
+    height: fit-content;
+    padding: 20px 0;
+    transform: rotate(90deg);
+    font-size: 1.5rem;
 }
 
 .fixed-part {
@@ -123,6 +124,22 @@ p {
     background-color: var(--color-back2);
     box-shadow: 3px 3px 5px black;
     border-radius: 50%;
-    z-index: 10;
+    z-index: 50;
     cursor: pointer;
 }
+
+.result {
+    position: absolute;
+    color: gold;
+    height: 100%;
+    width: 100%;
+    text-align: center;
+    transform: rotate(var(--result-pin));
+    font-size: 2rem;
+    z-index: 2;
+}
+
+i {
+    text-shadow: 3px 3px 5px black;
+}
+    
