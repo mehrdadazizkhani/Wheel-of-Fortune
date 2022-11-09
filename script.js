@@ -3,32 +3,42 @@ const wheelContainer = document.querySelector('.wheel-container')
 const lightContainer = document.querySelector('.light-container')
 const wheel = document.querySelector('.wheel')
 const start = document.querySelector('.fixed-part')
+const score = document.querySelector('.score')
+const scoreText = document.querySelector('.score-text')
+const winSound = new Audio('./win.wav')
+const chanceSound = new Audio('./chance.wav')
+const lsoeSound = new Audio('./lose.wav')
+const spinSound = new Audio('./spin.mp3')
 const division = 16
 const fakeMove = 360 * 3
 
 const prizes = [
-    {prize: "0", chance: 25},
-    {prize: "22.5", chance: 20},
-    {prize: "45", chance: 7},
-    {prize: "67.5", chance: 15},
-    {prize: "90", chance: 10},
-    {prize: "112.5", chance: 2},
-    {prize: "135", chance: 5},
-    {prize: "157.5", chance: 10},
-    {prize: "180", chance: 70},
-    {prize: "202.5", chance: 30},
-    {prize: "225", chance: 4},
-    {prize: "247.5", chance: 5},
-    {prize: "270", chance: 15},
-    {prize: "292.5", chance: 10},
-    {prize: "315", chance: 5},
-    {prize: "337.5", chance: 10}
+    {prize: "100$", chance: 24},
+    {prize: "CHANCE", chance: 30},
+    {prize: "800$", chance: 4},
+    {prize: "YOU LOST", chance: 25},
+    {prize: "400$", chance: 7},
+    {prize: "5000$", chance: 1},
+    {prize: "600$", chance: 5},
+    {prize: "500$", chance: 6},
+    {prize: "10$", chance: 40},
+    {prize: "CHANCE", chance: 30},
+    {prize: "100$", chance: 29},
+    {prize: "YOU LOST", chance: 25},
+    {prize: "1500$", chance: 3},
+    {prize: "500$", chance: 6},
+    {prize: "1000$", chance: 4},
+    {prize: "350$", chance: 8}
 ]
 
 let rotation = []
+let duplicatedPrize = []
 for (let i = 0; i < division; i++) {
     for (let j = 0; j < prizes[i].chance; j++) {
         rotation.push(360/division*i)
+    }
+    for (let j = 0; j < prizes[i].chance; j++) {
+        duplicatedPrize.push(prizes[i])
     }
 }
 
@@ -85,16 +95,51 @@ const switchHandler = () => {
     }
 }
 
-
 function startHandler () {
-    const finalRotationDeg = rotation[Math.floor(Math.random()*rotation.length)]
+    const randomNumber = Math.floor(Math.random()*rotation.length)
+    const finalRotationDeg = rotation[randomNumber]
     if (prevDeg - finalRotationDeg <= 0) {
         rotationDeg += -1*(prevDeg - finalRotationDeg) + fakeMove
     } else {
         rotationDeg += (360 - prevDeg + finalRotationDeg) + fakeMove
     }
     prevDeg = finalRotationDeg
-    wheel.style.transform = `rotate(${-rotationDeg}deg)`   
+    wheel.style.transform = `rotate(${-rotationDeg}deg)`
+    start.removeEventListener("click",startHandler)
+    scoreText.innerText = duplicatedPrize[randomNumber].prize
+    spinSound.play()
+
+    setTimeout(() => {
+        audioHandler()
+        addListener()
+        scoreHandler()
+    }, 5300)
+
+    const audioHandler = () => {
+        if (duplicatedPrize[randomNumber].chance == 30) {
+            chanceSound.play()
+        } else if (duplicatedPrize[randomNumber].chance == 25) {
+            lsoeSound.play()
+        } else {
+            winSound.play()
+        }
+    }
+}
+
+
+const addListener = () => {
+    start.addEventListener("click", startHandler)
+}
+
+const scoreHandler = () => {
+    score.classList.add("score-active")
+    scoreText.classList.add("score-text-active")
+    setTimeout(scoreClear, 2000)
+}
+
+const scoreClear = () => {
+    score.classList.remove("score-active")
+    scoreText.classList.remove("score-text-active")
 }
 
 setInterval(switchHandler, 1500)

@@ -28,8 +28,8 @@ body {
 .wheel-container {
     position: relative;
     background-color: var(--color-back1);
-    height: 600px;
-    width: 600px;
+    min-width: 600px;
+    aspect-ratio: 1/1;
     border-radius: 50%;
     box-shadow:  16px 16px 15px #691515,
              -16px -16px 15px #891b1b;
@@ -70,8 +70,8 @@ body {
 }
 
 .light-source {
-    width: 16px;
-    height: 16px;
+    width: 80%;
+    height: 80%;
     background-color: rgb(42, 40, 37);
     border-radius: 50%;
     transition: 0.3s;
@@ -97,7 +97,7 @@ body {
     inset: 6%;
     background: repeating-conic-gradient(bisque 0deg calc(360/var(--division)*1deg), rgb(66, 130, 66) calc(360/var(--division)*1deg) calc(360/var(--division)*2*1deg));
     transform: rotate();
-    transition: transform 8s cubic-bezier(.34,.01,.29,1.03);
+    transition: transform 5s cubic-bezier(.34,.01,.29,1.03);
 }
 
 .pie {
@@ -106,40 +106,138 @@ body {
     height: 100%;
     display: flex;
     justify-content: center;
+    align-items: flex-start;
     z-index: 50;
 }
 
 .prize {
-    text-align: end;
+    transform-origin: top left;
+    margin: 0;
     height: fit-content;
-    padding: 20px 0;
-    transform: rotate(90deg);
-    font-size: 1.5rem;
+    font-size: 1.5em;
+    transform:  translateX(calc(50% + 0.75rem)) rotate(90deg) ;
+    padding-left: 10px;
 }
 
 .fixed-part {
     position: absolute;
     width: 120px;
-    height: 120px;
+    aspect-ratio: 1/1;
     background-color: var(--color-back2);
     box-shadow: 3px 3px 5px black;
     border-radius: 50%;
     z-index: 50;
     cursor: pointer;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    color: bisque;
+    font-family: modak;
+    font-size: 4rem;
 }
 
 .result {
     position: absolute;
-    color: gold;
     height: 100%;
     width: 100%;
     text-align: center;
-    transform: rotate(var(--result-pin));
+    transform: translateY(-10px) rotate(var(--result-pin));
     font-size: 2rem;
-    z-index: 2;
+    z-index: 20;
+    text-shadow: 5px 5px black;
 }
 
-i {
-    text-shadow: 3px 3px 5px black;
+.carrot {
+    width: 70px;
+    aspect-ratio: 1/1;
+    transform: rotate(135deg);
 }
+
+
+@keyframes spin {
+    0% {transform: rotate(145deg);}
+    50% {transform: rotate(125deg);}
+    100% {transform: rotate(145deg);}
+}
+
+.score {
+    display: none;
+    position: fixed;
+    justify-content: center;
+    align-items: center;
+    width: 100vw;
+    height: 100vh;
+    transform-origin: center center;
+    transition: all 1s linear;
+    animation: rotate 8s linear;
+    background: repeating-conic-gradient(var(--color-back2) 0deg calc(360/var(--division)*1deg), var(--color-back1) calc(360/var(--division)*1deg) calc(360/var(--division)*2*1deg));
+}
+
+@keyframes rotate {
+    0% {transform: rotate(0deg) scale(5);}
+    100% {transform: rotate(360deg) scale(5);}
+}
+
+.score-active {
+    display: flex;
+}
+
+.score-text {
+    position: fixed;
+    display: none;
+    justify-content: center;
+    align-items: center;
+    width: 100vw;
+    height: 100vh;
+    font-size: 7rem;
+    font-family: 'Modak', cursive;
+    color: aliceblue;
+    transform-origin: center center;
+    transform: rotate(-10deg);
+    animation: move 1s infinite ease-in-out;
+}
+
+.score-text::before {
+    -webkit-text-stroke: 0.21em black;
+}
+
+@keyframes move {
+    0% {transform: rotate(-10deg);}
+    50% {transform: rotate(10deg);}
+    100% {transform: rotate(-10deg);}
+}
+
+.score-text-active {
+    display: flex;
+}
+
     
+
+@media screen and (max-width: 650px) {
+    .wheel-container {
+        min-width: 80%;
+    }
+
+    .fixed-part {
+        width: 15%;
+        font-size: 2.5rem;
+    }
+
+    .prize {
+        font-size: 1rem;
+        transform:  translateX(calc(50% + 0.5rem)) rotate(90deg) ;
+    }
+
+    .result {
+        font-size: 1.5rem;
+    }
+
+    .light {
+        width: 12px;
+        height: 12px;
+    }
+
+    .score-text {
+        font-size: 4rem;
+    }
+}
